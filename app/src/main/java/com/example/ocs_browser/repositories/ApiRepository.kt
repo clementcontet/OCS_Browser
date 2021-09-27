@@ -29,10 +29,9 @@ object ApiRepository {
             .build()
     }
 
-    fun getResults(): Single<SearchResults> {
-        return ocsService.getResults()
+    fun getResults(searchTerm: String): Single<SearchResults> {
+        return ocsService.getResults("title=$searchTerm")
     }
-
 
     fun getDetails(detailsPath: String): Single<SearchResult> {
         return ocsService.getDetails(detailsPath)
