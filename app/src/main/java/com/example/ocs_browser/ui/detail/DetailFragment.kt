@@ -6,9 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import com.example.ocs_browser.databinding.FragmentDetailBinding
+
+import androidx.databinding.DataBindingUtil
 import com.example.ocs_browser.R
 
+
 class DetailFragment : Fragment() {
+    private lateinit var binding: FragmentDetailBinding
+    val args: DetailFragmentArgs by navArgs()
 
     companion object {
         fun newInstance() = DetailFragment()
@@ -19,7 +26,15 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_detail, container, false
+        )
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        viewModel.searchItem = args.searchItem
+
+        return binding.root
     }
 }

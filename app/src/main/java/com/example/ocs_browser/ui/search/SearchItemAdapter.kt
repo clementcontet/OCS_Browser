@@ -1,4 +1,4 @@
-package com.example.ocs_browser.adapters
+package com.example.ocs_browser.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ocs_browser.R
 import com.example.ocs_browser.databinding.ListItemSearchItemBinding
-import com.example.ocs_browser.models.SearchResults
-import com.example.ocs_browser.ui.search.SearchItemViewModel
+import com.example.ocs_browser.models.SearchItem
 
 class SearchItemAdapter :
-    ListAdapter<SearchResults.Content, SearchItemAdapter.ViewHolder>(SearchItemDiffCallback()) {
+    ListAdapter<SearchItem, SearchItemAdapter.ViewHolder>(SearchItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -32,33 +31,34 @@ class SearchItemAdapter :
 
     class ViewHolder(private val binding: ListItemSearchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.setClickListener { view ->
-                view.findNavController().navigate(R.id.detailFragment)
-            }
-        }
 
-        fun bind(content: SearchResults.Content) {
+        fun bind(searchItem: SearchItem) {
             with(binding) {
-                viewModel = SearchItemViewModel(content)
+                this.root.setOnClickListener { view ->
+                    val action =
+                        SearchFragmentDirections.actionSearchFragmentToDetailFragment(searchItem)
+                    view.findNavController().navigate(action)
+                }
+
+                viewModel = SearchItemViewModel(searchItem)
                 executePendingBindings()
             }
         }
     }
 }
 
-private class SearchItemDiffCallback : DiffUtil.ItemCallback<SearchResults.Content>() {
+private class SearchItemDiffCallback : DiffUtil.ItemCallback<SearchItem>() {
 
     override fun areItemsTheSame(
-        oldItem: SearchResults.Content,
-        newItem: SearchResults.Content
+        oldItem: SearchItem,
+        newItem: SearchItem
     ): Boolean {
         return oldItem.title == newItem.title && oldItem.subtitle == newItem.subtitle
     }
 
     override fun areContentsTheSame(
-        oldItem: SearchResults.Content,
-        newItem: SearchResults.Content
+        oldItem: SearchItem,
+        newItem: SearchItem
     ): Boolean {
         return oldItem.title == newItem.title && oldItem.subtitle == newItem.subtitle
     }

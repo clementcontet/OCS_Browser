@@ -1,12 +1,10 @@
 package com.example.ocs_browser.ui.search
 
-import com.example.ocs_browser.models.SearchResults
+import com.example.ocs_browser.models.SearchItem
 
-class SearchItemViewModel(result: SearchResults.Content) {
-    val title: String = result.title[0].value
-    val subtitle: String = result.subtitle
+class SearchItemViewModel(searchItem: SearchItem) {
+    val title: String = searchItem.title[0].value
+    val subtitle: String = searchItem.subtitle
     val imageurl: String? =
-        if (result.imageurl != null) ("https://statics.ocs.fr" + result.imageurl) else null
-    val fullscreenimageurl: String? =
-        if (result.fullscreenimageurl != null) ("https://statics.ocs.fr" + result.fullscreenimageurl) else null
+        if (searchItem.imageurl != null) ("https://statics.ocs.fr" + searchItem.imageurl) else null
 }

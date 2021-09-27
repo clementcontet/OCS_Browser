@@ -9,7 +9,7 @@
         android:id="@+id/searchFragment"
         android:name="com.example.ocs_browser.ui.search.SearchFragment"
         android:label="search_fragment"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -19,6 +19,10 @@
         android:id="@+id/detailFragment"
         android:name="com.example.ocs_browser.ui.detail.DetailFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="searchItem"
+            app:argType="com.example.ocs_browser.models.SearchItem" />
+    </fragment>
 
 </navigation>

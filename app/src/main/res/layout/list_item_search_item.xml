@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener" />
 
         <variable
             name="viewModel"
@@ -15,8 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{clickListener}">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/thumbnail_image"
@@ -26,13 +22,14 @@
             app:imageFromUrl="@{viewModel.imageurl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             style="@style/ThumbnailTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text='@{viewModel.title}'
+            android:text="@{viewModel.title}"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
