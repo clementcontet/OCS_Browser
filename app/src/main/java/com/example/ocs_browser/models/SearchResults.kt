@@ -5,7 +5,9 @@ data class SearchResults(
 ) {
     data class Content(
         val title: List<Title>,
-        val subtitle: String
+        val subtitle: String,
+        val imageurl: String?,
+        val fullscreenimageurl: String?
     ) {
         data class Title(
             val value: String

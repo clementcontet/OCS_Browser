@@ -18,11 +18,35 @@
         android:layout_height="wrap_content"
         android:onClick="@{clickListener}">
 
-        <TextView
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/thumbnail_image"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text='@{viewModel.title + " - " + viewModel.subtitle}'
+            android:scaleType="fitCenter"
+            app:imageFromUrl="@{viewModel.imageurl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/ThumbnailTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text='@{viewModel.title}'
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/ThumbnailSubtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text='@{viewModel.subtitle}'
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

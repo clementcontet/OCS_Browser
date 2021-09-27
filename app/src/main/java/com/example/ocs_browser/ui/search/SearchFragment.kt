@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import com.example.ocs_browser.adapters.SearchItemAdapter
 import com.example.ocs_browser.databinding.FragmentSearchBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
+    private var viewModelSubscription: Disposable? = null
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -32,8 +34,13 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        viewModelSubscription?.dispose()
+        super.onDestroyView()
+    }
+
     private fun subscribeUi(adapter: SearchItemAdapter) {
-        viewModel.results
+        viewModelSubscription = viewModel.results
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { result -> adapter.submitList(result.contents) }
     }
