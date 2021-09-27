@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.ocs_browser.R
-import com.example.ocs_browser.databinding.SearchFragmentBinding
+import com.example.ocs_browser.adapters.SearchItemAdapter
+import com.example.ocs_browser.databinding.FragmentSearchBinding
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
 class SearchFragment : Fragment() {
-    private lateinit var binding: SearchFragmentBinding
+    private lateinit var binding: FragmentSearchBinding
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -23,10 +23,18 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = SearchFragmentBinding.inflate(layoutInflater)
+        binding = FragmentSearchBinding.inflate(layoutInflater)
 
-        binding.linkButton.setOnClickListener { findNavController().navigate(R.id.detailFragment) }
+        val adapter = SearchItemAdapter()
+        binding.resultList.adapter = adapter
+        subscribeUi(adapter)
 
         return binding.root
+    }
+
+    private fun subscribeUi(adapter: SearchItemAdapter) {
+        viewModel.results
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { result -> adapter.submitList(result.contents) }
     }
 }
