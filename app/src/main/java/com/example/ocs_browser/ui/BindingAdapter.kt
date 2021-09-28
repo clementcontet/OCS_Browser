@@ -1,4 +1,4 @@
-package com.example.ocs_browser.ui.search
+package com.example.ocs_browser.ui
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
