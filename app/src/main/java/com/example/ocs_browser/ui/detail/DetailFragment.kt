@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.ocs_browser.databinding.FragmentDetailBinding
 
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.ocs_browser.R
 
 
@@ -33,6 +35,9 @@ class DetailFragment : Fragment() {
         )
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setupActionBarWithNavController(activity as AppCompatActivity, findNavController())
 
         viewModel.searchItem = args.searchItem
         binding.playButton.setOnClickListener {
