@@ -23,6 +23,19 @@
         <argument
             android:name="searchItem"
             app:argType="com.example.ocs_browser.models.SearchItem" />
+        <action
+            android:id="@+id/action_detailFragment_to_playerFragment"
+            app:destination="@id/playerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playerFragment"
+        android:name="com.example.ocs_browser.ui.player.PlayerFragment"
+        android:label="fragment_player"
+        tools:layout="@layout/fragment_player">
+        <argument
+            android:name="searchItem"
+            app:argType="com.example.ocs_browser.models.SearchItem" />
     </fragment>
 
 </navigation>

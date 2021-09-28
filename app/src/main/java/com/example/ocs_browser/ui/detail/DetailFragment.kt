@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.ocs_browser.databinding.FragmentDetailBinding
 
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.ocs_browser.R
 
 
@@ -34,6 +35,11 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.searchItem = args.searchItem
+        binding.playButton.setOnClickListener {
+            val action =
+                DetailFragmentDirections.actionDetailFragmentToPlayerFragment(args.searchItem)
+            findNavController().navigate(action)
+        }
 
         return binding.root
     }
