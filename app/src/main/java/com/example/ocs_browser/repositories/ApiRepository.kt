@@ -33,7 +33,7 @@ object ApiRepository: ApiRepositoryInterface {
         return ocsService.getResults("title=$searchTerm")
     }
 
-    fun getDetails(detailsPath: String): Single<SearchResult> {
+    override fun getDetails(detailsPath: String): Single<SearchResult> {
         return ocsService.getDetails(detailsPath)
     }
 }

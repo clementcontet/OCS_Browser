@@ -14,6 +14,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.ocs_browser.R
+import com.example.ocs_browser.repositories.ApiRepository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
 
 class DetailFragment : Fragment() {
@@ -26,6 +28,8 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.apiRepository = ApiRepository
+        viewModel.mainThreadScheduler = AndroidSchedulers.mainThread()
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_detail, container, false
         )

@@ -3,12 +3,13 @@ package com.example.ocs_browser.ui.detail
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.ocs_browser.models.SearchItem
-import com.example.ocs_browser.repositories.ApiRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.example.ocs_browser.repositories.ApiRepositoryInterface
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 
 class DetailViewModel : ViewModel() {
-    private val apiRepository = ApiRepository
+    lateinit var apiRepository: ApiRepositoryInterface
+    lateinit var mainThreadScheduler: Scheduler
 
     var imageUrl: MutableLiveData<String?> = MutableLiveData()
     var title: MutableLiveData<String?> = MutableLiveData()
@@ -36,7 +37,7 @@ class DetailViewModel : ViewModel() {
                 }
             }
             .onErrorResumeNext { Single.just("") }
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(mainThreadScheduler)
             .subscribe { resultPitch -> pitch.value = resultPitch }
     }
 }

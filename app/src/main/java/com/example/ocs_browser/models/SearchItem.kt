@@ -5,21 +5,21 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class SearchItem(
-    val title: List<Title>,
-    val subtitle: String,
-    val imageurl: String?,
-    val fullscreenimageurl: String?,
-    val detaillink: String?,
-    val pitch: String?,
-    val seasons: List<Season>?
+    val title: List<Title> = ArrayList(),
+    val subtitle: String = "",
+    val imageurl: String? = "",
+    val fullscreenimageurl: String? = "",
+    val detaillink: String? = "",
+    val pitch: String? = "",
+    val seasons: List<Season>? = ArrayList()
 ) : Parcelable {
     @Parcelize
     data class Title(
-        val value: String
+        val value: String = ""
     ) : Parcelable
 
     @Parcelize
     data class Season(
-        val pitch: String?
+        val pitch: String? = ""
     ) : Parcelable
 }
