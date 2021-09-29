@@ -5,14 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.ocs_browser.models.SearchResults
-import com.example.ocs_browser.repositories.ApiRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.example.ocs_browser.repositories.ApiRepositoryInterface
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
 class SearchViewModel : ViewModel() {
-    private val apiRepository = ApiRepository
+    lateinit var apiRepository: ApiRepositoryInterface
+    lateinit var ioScheduler: Scheduler
+    lateinit var mainThreadScheduler: Scheduler
     val results: BehaviorSubject<SearchResults> = BehaviorSubject.create()
     var searchTerm: MutableLiveData<String> = MutableLiveData()
     var searchTermRx: Flowable<String>? = null
@@ -27,13 +29,13 @@ class SearchViewModel : ViewModel() {
 
     private fun listenForSearchTeam() {
         searchTermRx!!
-            .skip(1)
-            .filter { searchTerm -> searchTerm.length >= 3 }
-            .observeOn(AndroidSchedulers.mainThread())
+            .skip(1) // searchTermRx always first emit the empty string
+            .filter { searchTerm -> searchTerm.length >= 3 } // don't search for too short string
+            .observeOn(mainThreadScheduler)
             .doOnNext { spinnerVisible.value = true }
-            .debounce(500, TimeUnit.MILLISECONDS)
+            .debounce(500, TimeUnit.MILLISECONDS, ioScheduler) // 0.5secs between searchs
             .switchMap { searchTerm -> apiRepository.getResults(searchTerm).toFlowable() }
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(mainThreadScheduler)
             .doOnNext { spinnerVisible.value = false }
             .subscribe { result -> results.onNext(result) }
     }

@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiRepository {
+object ApiRepository: ApiRepositoryInterface {
     private val ocsService = Retrofit.Builder()
         .baseUrl("https://api.ocs.fr")
         .client(getOkHttpClient())
@@ -29,7 +29,7 @@ object ApiRepository {
             .build()
     }
 
-    fun getResults(searchTerm: String): Single<SearchResults> {
+    override fun getResults(searchTerm: String): Single<SearchResults> {
         return ocsService.getResults("title=$searchTerm")
     }
 

@@ -13,9 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.ocs_browser.R
 import com.example.ocs_browser.databinding.FragmentSearchBinding
+import com.example.ocs_browser.repositories.ApiRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
@@ -27,6 +29,9 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel.apiRepository = ApiRepository
+        viewModel.ioScheduler = Schedulers.io()
+        viewModel.mainThreadScheduler = AndroidSchedulers.mainThread()
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_search, container, false
         )
