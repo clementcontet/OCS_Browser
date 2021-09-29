@@ -29,7 +29,7 @@
             android:id="@+id/search_term"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Recherche..."
+            android:hint="@string/fragment_search_search_placeholder"
             app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -58,7 +58,7 @@
             style="@style/DetailsSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Saisissez une recherche d'au moins 3 caractères"
+            android:text="@string/fragment_search_instructions"
             android:textAlignment="center"
             android:visibility="@{safeUnbox(!viewModel.gridVisible) ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"

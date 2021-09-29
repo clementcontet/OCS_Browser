@@ -18,11 +18,7 @@ import com.example.ocs_browser.R
 
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
-    val args: DetailFragmentArgs by navArgs()
-
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
+    private val args: DetailFragmentArgs by navArgs()
 
     private val viewModel: DetailViewModel by viewModels()
 

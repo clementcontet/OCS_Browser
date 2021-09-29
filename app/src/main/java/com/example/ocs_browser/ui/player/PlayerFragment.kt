@@ -2,6 +2,7 @@ package com.example.ocs_browser.ui.player
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.ocs_browser.databinding.FragmentPlayerBinding
-import com.example.ocs_browser.ui.detail.DetailFragment
 import com.example.ocs_browser.ui.detail.DetailFragmentArgs
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -20,12 +20,8 @@ const val videoUrl =
 
 class PlayerFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBinding
-    val args: DetailFragmentArgs by navArgs()
+    private val args: DetailFragmentArgs by navArgs()
     private lateinit var player: SimpleExoPlayer
-
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
 
     private val viewModel: PlayerViewModel by viewModels()
 
@@ -35,14 +31,14 @@ class PlayerFragment : Fragment() {
     ): View {
         binding = FragmentPlayerBinding.inflate(inflater, container, false)
         context?.let { createPlayer(it) }
-        // args.searchItem
+        Log.d("OCS Browser", "Playing content: " + args.searchItem.title)
 
         return binding.root
     }
 
-    fun createPlayer(context: Context) {
+    private fun createPlayer(context: Context) {
         player = SimpleExoPlayer.Builder(context).build()
-        binding.player.setPlayer(player)
+        binding.player.player = player
         val mediaItem: MediaItem = MediaItem.fromUri(videoUrl)
         player.setMediaItem(mediaItem)
         player.prepare()

@@ -21,10 +21,6 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private var viewModelSubscription: Disposable? = null
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
-
     private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(

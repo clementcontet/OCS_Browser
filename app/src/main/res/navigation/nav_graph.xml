@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.ocs_browser.ui.search.SearchFragment"
-        android:label="OCS Browser"
+        android:label="@string/fragment_search_title"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.ocs_browser.ui.detail.DetailFragment"
-        android:label="Détails"
+        android:label="@string/fragment_detail_title"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="searchItem"
@@ -31,7 +31,6 @@
     <fragment
         android:id="@+id/playerFragment"
         android:name="com.example.ocs_browser.ui.player.PlayerFragment"
-        android:label="Lecture"
         tools:layout="@layout/fragment_player">
         <argument
             android:name="searchItem"

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">OCS-Browser</string>
+    <string name="fragment_search_title">OCS Browser</string>
+    <string name="fragment_search_search_placeholder">Recherche…</string>
+    <string name="fragment_search_instructions">Saisissez une recherche d\'au moins 3 caractères</string>
+    <string name="fragment_detail_title">Détails</string>
+    <string name="fragment_detail_play_button_description">Lire le contenu</string>
+    <string name="fragment_detail_thumbnail_image_description">Miniature du contenu</string>
+    <string name="list_item_search_item_thumbnail_image_description">Miniature du contenu</string>
 </resources>
