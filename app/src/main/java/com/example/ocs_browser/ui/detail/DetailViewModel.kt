@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.ocs_browser.models.SearchItem
 import com.example.ocs_browser.repositories.ApiRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 
 class DetailViewModel : ViewModel() {
     private val apiRepository = ApiRepository
@@ -34,9 +35,8 @@ class DetailViewModel : ViewModel() {
                     return@map result.contents.pitch ?: ""
                 }
             }
+            .onErrorResumeNext { Single.just("") }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { resultPitch ->
-                pitch.value = resultPitch
-            }
+            .subscribe { resultPitch -> pitch.value = resultPitch }
     }
 }

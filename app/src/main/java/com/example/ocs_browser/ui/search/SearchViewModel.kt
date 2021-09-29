@@ -33,8 +33,11 @@ class SearchViewModel : ViewModel() {
             .filter { searchTerm -> searchTerm.length >= 3 } // don't search for too short string
             .observeOn(mainThreadScheduler)
             .doOnNext { spinnerVisible.value = true }
-            .debounce(500, TimeUnit.MILLISECONDS, ioScheduler) // 0.5secs between searchs
-            .switchMap { searchTerm -> apiRepository.getResults(searchTerm).toFlowable() }
+            .debounce(500, TimeUnit.MILLISECONDS, ioScheduler) // 0.5secs between searches
+            .switchMap { searchTerm ->
+                apiRepository.getResults(searchTerm).toFlowable()
+                    .onErrorResumeNext { Flowable.just(SearchResults(contents = ArrayList())) }
+            }
             .observeOn(mainThreadScheduler)
             .doOnNext { spinnerVisible.value = false }
             .subscribe { result -> results.onNext(result) }
